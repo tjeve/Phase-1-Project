@@ -1,0 +1,26 @@
+{
+  "name": "phase-1-project",
+  "version": "1.0.0",
+  "description": "The purpose of this project is to create a website that allows you to search for food by images from various restaurants and then show you where that food is located. It will use the Yelp and Google Maps API in order to do this.",
+  "main": "restaurantinfo.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "standard": "^14.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tjeve/Phase-1-Project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tjeve/Phase-1-Project/issues"
+  },
+  "homepage": "https://github.com/tjeve/Phase-1-Project#readme"
+}
