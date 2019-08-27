@@ -2,10 +2,11 @@ $(document).ready(init)
 
 function init () {
 
-    var yelpPromise = jQuery.get("https://api.yelp.com/v3/businesses/C8BQYgLbpRyf9ENtVAujLQ")
+    var yelpPromise = $.get("https://api.yelp.com/v3/businesses/{id}")
     .then(function() {
         console.log("you now have the yelp data!")
     })
+
 }
 
 //Questions:
