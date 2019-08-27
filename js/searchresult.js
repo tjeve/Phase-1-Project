@@ -32,12 +32,34 @@ function searchBusiness(){
     fetchYelpAPI(yelpUrlBusinessSearch, params, true)
     .then(checkYelpAPIResponse)
     .then(handleAPIReponse)
+    .then(completeAllImageLoading)
+    .then(function(promiseArray){
+      console.log(promiseArray)
+      Promise.allSettled(promiseArray)
+      .then(masonry)
+      .catch(function(err){
+        console.error(err.message)
+      })
+    })
   })
   .catch(err => {
     console.error(err.message)
   })
 }
 
+function completeAllImageLoading(){
+  const imgs = document.querySelectorAll('img')
+  let promiseArray = []
+  imgs.forEach(function(img){
+    const promise =  new Promise(function(resolve, reject){
+      img.addEventListener('load', function(){
+        resolve()
+      })
+    })
+    promiseArray.push(promise)
+  })
+  return promiseArray
+}
 
 function fetchYelpAPI (yelpUrl, params, corsAnywhere) {
   const url = corsAnywhere
@@ -61,7 +83,7 @@ function checkYelpAPIResponse (res) {
 
 function handleAPIReponse (json) {
   const image_urls = json.businesses.map(function (business) {
-    return `<img src=${business.image_url} width="300px">`
+    return `<div class="grid-item"><img src=${business.image_url}></div>`
   })
   searchResult.innerHTML = image_urls.join('')
   console.log(json.businesses)
@@ -81,4 +103,14 @@ function generateUrlWithParams (baseUrl, params) {
     }
   }
   return baseUrl + '?' + ret.join('&')
+}
+
+function masonry(){
+  const msnryArea = document.querySelector('.grid');
+  const msnry = new Masonry( msnryArea, {
+    // options
+    itemSelector: '.grid-item',
+    columnWidth: 350
+  });
+  
 }
