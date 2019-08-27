@@ -15,7 +15,9 @@ console.log(inputLocation.value)
 btnSearch.addEventListener('click', searchBusiness)
 
 function searchBusiness(){
-  getPosition()
+
+  getPositionFromIPData()
+  .then(checkResponseAndReturnJson)
   .then(position => {
     console.log(position)
     let params = {
@@ -23,14 +25,14 @@ function searchBusiness(){
       limit: 50
     }
     if(inputLocation.value === ''){
-      params.latitude = position.coords.latitude
-      params.longitude = position.coords.longitude
+      params.latitude = position.latitude
+      params.longitude = position.longitude
     }else{
       params.location = inputLocation.value
     }
     console.log(params)
     fetchYelpAPI(yelpUrlBusinessSearch, params, true)
-    .then(checkYelpAPIResponse)
+    .then(checkResponseAndReturnJson)
     .then(handleAPIReponse)
     .then(completeAllImageLoading)
     .then(function(promiseArray){
@@ -65,6 +67,7 @@ function fetchYelpAPI (yelpUrl, params, corsAnywhere) {
   const url = corsAnywhere
     ? corsAnywhereUrl + generateUrlWithParams(yelpUrl, params)
     : generateUrlWithParams(yelpUrl, params)
+    console.log(url)
   return fetch(url, {
     headers: {
       Authorization: 'Bearer ' + YELP_API_KEY
@@ -72,7 +75,7 @@ function fetchYelpAPI (yelpUrl, params, corsAnywhere) {
   })
 }
 
-function checkYelpAPIResponse (res) {
+function checkResponseAndReturnJson (res) {
   if (res.status === 200) {
     return res.json()
   } else {
@@ -93,6 +96,10 @@ function getPosition (options) {
   return new Promise(function (resolve, reject) {
     navigator.geolocation.getCurrentPosition(resolve, reject, options)
   })
+}
+
+function getPositionFromIPData(){
+  return fetch('https://api.ipdata.co?api-key=1bf5329a7500c813f5c947083b124f22dbdd34a04647000ced91d64c')
 }
 
 function generateUrlWithParams (baseUrl, params) {
