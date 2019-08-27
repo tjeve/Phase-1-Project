@@ -1,0 +1,10 @@
+.rest-info-container {
+    display: flex;
+    flex-direction: row;
+}
+.rest-info {
+    border: solid navy;
+}
+.rest-map-container {
+    border: solid orange;
+}
