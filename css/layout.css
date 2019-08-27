@@ -1,0 +1,107 @@
+body {
+    padding: 0;
+    margin: 0;
+    background: #f2f6e9;
+  }
+  /*--- navigation bar ---*/
+  .navbar {
+    background: rgba(29, 45, 68, 1);
+  }
+  .nav-link,
+  .navbar-brand {
+    color: #92AC86;
+    cursor: pointer;
+    font-family: 'Livvic', sans-serif;
+  }
+  .nav-link {
+    margin-right: 1em !important;
+  }
+  .nav-link:hover {
+    color: #fff;
+  }
+  .navbar-collapse {
+    justify-content: flex-end;
+  }
+  .header {
+    background-image: url('/img/bowl.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+  .overlay {
+    position: absolute;
+    min-height: 100%;
+    min-width: 100%;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.6);
+  }
+  .description {
+    left: 50%;
+    position: absolute;
+    top: 45%;
+    transform: translate(-50%, -55%);
+    text-align: center;
+  }
+  .description h1 {
+    color: #92AC86;
+    font-family: 'Livvic', sans-serif
+  }
+  .description p {
+    color: #fff;
+    font-size: 1.3rem;
+    line-height: 1.5;
+  }
+  .description button {
+    border:1px solid #fff;
+    background:;
+    border-radius: 0;
+    color:#fff;
+  }
+  .description button:hover {
+    border:1px solid #92AC86;
+    background: #92AC86;
+    color:#fff;
+  }
+  .features {
+    margin: 4em auto;
+    padding: 1em;
+    position: relative;
+  }
+  .feature-title {
+    color: #333;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  .features img {
+    -webkit-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+    margin-bottom: 16px;
+  }
+  .features .form-control,
+.features input {
+    border-radius: 0;
+}
+.features .btn {
+  background-color: rgba(29, 45, 68, 1);
+  border: 1px solid rgba(29, 45, 68, 1);
+  color: #fff;
+  margin-top: 20px;
+}
+.features .btn:hover {
+  background-color: #92AC86;
+  border: 1px solid #92AC86;
+}
+.page-footer {
+    background-color: rgba(29, 45, 68, 1);
+    color: #ccc;
+    padding: 60px 0 30px;
+  }
+  .footer-copyright {
+    color: #666;
+    padding: 40px 0;
+  }
+  rgba(29, 45, 68, 1)
