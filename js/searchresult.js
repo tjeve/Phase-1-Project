@@ -15,9 +15,20 @@ console.log(inputTerm.value)
 console.log(inputLocation.value)
 
 btnSearch.addEventListener('click', searchBusiness)
-searchResult.addEventListener('mouseover', toggleIcons)
-searchResult.addEventListener('mouseout', toggleIcons)
-searchResult.addEventListener('click', openDetails)
+
+function addEventListenersToResults(){
+  const baseNodes = searchResult.querySelectorAll('.grid-item .inner')
+  baseNodes.forEach(function(node){
+    const img = node.querySelector('img')
+    const classFilter = node.querySelector('.filter')
+    const classIcon = node.querySelector('.icons')
+    const icons = node.querySelectorAll('.icon')
+    console.assert(img, 'img is missing')
+    img.addEventListener('mouseover', toggleIcons)
+    classIcon.addEventListener('mouseout', toggleIcons)
+  })
+ 
+}
 
 function openDetails (e) {
   e.preventDefault()
@@ -38,8 +49,7 @@ function toggleIcons (e) {
   e.stopPropagation()
   console.log(e.target)
   if (
-    e.target.className === 'icons' ||
-    e.target.tagName.toLowerCase() === 'img'
+    e.target.tagName.toLowerCase() === 'img' || e.target.className === 'icons'
   ) {
     const baseNode = e.target.parentNode
     // console.log(baseNode)
@@ -62,13 +72,14 @@ function toggleIcons (e) {
         i.style.display = 'block'
         i.style['z-index'] = 4
       })
-    } else if (e.type === 'mouseout' && e.target.className === 'icons') {
-      classFilter.style.display = 'none'
-      classIcons.style.display = 'none'
-      icon.forEach(function (i) {
-        i.style.display = 'none'
-      })
     }
+    // else if (e.type === 'mouseout' && e.target.className === 'icons') {
+    //   classFilter.style.display = 'none'
+    //   classIcons.style.display = 'none'
+    //   icon.forEach(function (i) {
+    //     i.style.display = 'none'
+    //   })
+    // }
   }
 }
 
@@ -96,6 +107,7 @@ function searchBusiness () {
           // console.log(promiseArray)
           Promise.allSettled(promiseArray)
             .then(masonry)
+            .then(addEventListenersToResults)
             .catch(function (err) {
               console.error(err.message)
             })
