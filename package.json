@@ -18,6 +18,9 @@
     "url": "git+https://github.com/tjeve/Phase-1-Project.git"
   },
   "author": "",
+  "standard": {
+    "globals": ["$"]
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/tjeve/Phase-1-Project/issues"
