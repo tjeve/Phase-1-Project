@@ -4,12 +4,52 @@
 
 .grid-item{
     width: 350px;
-    margin:0;
-    padding:0;
 }
 .grid-item img{
     width: 100%;
-    margin:0;
-    padding:0;
     vertical-align:bottom;
+    z-index: -1;
+}
+
+.grid-item .inner{
+    position: relative;
+}
+
+.grid-item .inner .filter{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: black;
+    opacity: 0.5;
+    /* z-index: 3; */
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+.grid-item .inner .icons{
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    /* z-index: 2; */
+    width: 100%;
+    height: 100%;
+}
+
+.grid-item .inner .icons .icon{
+    display: none;
+    padding: 0 5px;
+    position: relative;
+    /* z-index: 1; */
+}
+
+.grid-item .inner .icons .link2details{
+    color: white;
+}
+
+.grid-item .inner .icons .link2favorites{
+    color: white;
 }

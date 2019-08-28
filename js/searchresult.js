@@ -15,12 +15,67 @@ console.log(inputTerm.value)
 console.log(inputLocation.value)
 
 btnSearch.addEventListener('click', searchBusiness)
+searchResult.addEventListener('mouseover', toggleIcons)
+searchResult.addEventListener('mouseout', toggleIcons)
+searchResult.addEventListener('click', openDetails)
+
+function openDetails (e) {
+  e.preventDefault()
+  e.stopPropagation()
+  if(e.target.tagName.toLowerCase() === 'i'){
+    //console.dir(e.target.parentNode.classList)
+    const parent = e.target.parentNode
+    if (parent.classList.contains('link2details')) {
+      console.log(parent.getAttribute('restaurant-id'))
+      window.location.href = 'restinfo.html?id=' + parent.getAttribute('restaurant-id')
+    }  
+  }
+}
+
+function toggleIcons (e) {
+  e.preventDefault()
+  e.stopPropagation()
+  console.log(e.target)
+  if (
+    e.target.className === 'icons' ||
+    e.target.tagName.toLowerCase() === 'img'
+  ) {
+    const baseNode = e.target.parentNode
+    // console.log(baseNode)
+    const classFilter = baseNode.querySelector('.filter')
+    const classIcons = baseNode.querySelector('.icons')
+    const icon = baseNode.querySelectorAll('.icon')
+    // console.assert(baseNode, 'baseNode is missing')
+    // console.assert(classFilter, 'classFilter is missing')
+    // console.assert(classIcons, 'classIcons is missing')
+    // console.assert(icon, 'icon is missing')
+    // console.dir(baseNode)
+    // console.log(e.type)
+    if (e.type === 'mouseover' && e.target.tagName.toLowerCase() === 'img') {
+      classFilter.style.display = 'block'
+      classFilter.style['z-index'] = 1
+      classIcons.style.display = 'flex'
+      classIcons.style['z-index'] = 2
+
+      icon.forEach(function (i) {
+        i.style.display = 'block'
+        i.style['z-index'] = 4
+      })
+    } else if (e.type === 'mouseout' && e.target.className === 'icons') {
+      classFilter.style.display = 'none'
+      classIcons.style.display = 'none'
+      icon.forEach(function (i) {
+        i.style.display = 'none'
+      })
+    }
+  }
+}
 
 function searchBusiness () {
   getPositionFromIPData()
     .then(checkResponseAndReturnJson)
     .then(position => {
-      console.log(position)
+      // console.log(position)
       const params = {
         term: inputTerm.value,
         limit: 50
@@ -31,13 +86,13 @@ function searchBusiness () {
       } else {
         params.location = inputLocation.value
       }
-      console.log(params)
+      // console.log(params)
       fetchYelpAPI(yelpUrlBusinessSearch, params, true)
         .then(checkResponseAndReturnJson)
         .then(handleAPIReponse)
         .then(completeAllImageLoading)
         .then(function (promiseArray) {
-          console.log(promiseArray)
+          // console.log(promiseArray)
           Promise.allSettled(promiseArray)
             .then(masonry)
             .catch(function (err) {
@@ -87,7 +142,20 @@ function checkResponseAndReturnJson (res) {
 
 function handleAPIReponse (json) {
   const imageUrls = json.businesses.map(function (business) {
-    return `<div class="grid-item"><img src=${business.image_url}></div>`
+    return `<div class="grid-item">
+              <div class="inner">
+                <div class="filter"></div>
+                <div class="icons">
+                  <div restaurant-id="${business.id}" class="icon link2details">
+                    <i class="fas fa-link fa-3x"></i>
+                  </div>
+                  <div class="icon link2favorites">
+                    <i class="far fa-heart fa-3x"></i>
+                  </div>
+                </div>
+                <img src=${business.image_url}>
+              </div>
+            </div>`
   })
   searchResult.innerHTML = imageUrls.join('')
   console.log(json.businesses)
@@ -100,7 +168,9 @@ function handleAPIReponse (json) {
 // }
 
 function getPositionFromIPData () {
-  return window.fetch('https://api.ipdata.co?api-key=1bf5329a7500c813f5c947083b124f22dbdd34a04647000ced91d64c')
+  return window.fetch(
+    'https://api.ipdata.co?api-key=1bf5329a7500c813f5c947083b124f22dbdd34a04647000ced91d64c'
+  )
 }
 
 function generateUrlWithParams (baseUrl, params) {
