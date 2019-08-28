@@ -27,7 +27,8 @@ function openDetails (e) {
     const parent = e.target.parentNode
     if (parent.classList.contains('link2details')) {
       console.log(parent.getAttribute('restaurant-id'))
-      window.location.href = 'restinfo.html?id=' + parent.getAttribute('restaurant-id')
+      const nextPath = (window.location.pathname.endsWith('.html')) ? 'restinfo.html' : 'restinfo'
+      window.location.href = nextPath + '?id=' + parent.getAttribute('restaurant-id')
     }  
   }
 }
