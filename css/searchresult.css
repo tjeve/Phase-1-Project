@@ -1,0 +1,15 @@
+/* #searchResult{
+    
+} */
+
+.grid-item{
+    width: 350px;
+    margin:0;
+    padding:0;
+}
+.grid-item img{
+    width: 100%;
+    margin:0;
+    padding:0;
+    vertical-align:bottom;
+}
