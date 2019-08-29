@@ -1,6 +1,6 @@
 .rest-info-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 .rest-info {
     border: solid navy;
