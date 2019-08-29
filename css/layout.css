@@ -52,17 +52,53 @@ body {
     font-size: 1.3rem;
     line-height: 1.5;
   }
-  .description button {
-    border:1px solid #fff;
-    background:;
+  .about {
+    left: 50%;
+    position: absolute;
+    top: 45%;
+    transform: translate(-50%, -55%);
+    text-align: center;
+    border-radius: 100px;
+    padding: 60px;
+    background-color: rgba(29, 45, 68, 1); 
+  }
+  .about h1 {
+    color: #92AC86;
+    font-family: 'Livvic', sans-serif
+  }
+  .about p {
+    color: #fff;
+    font-size: 1.3rem;
+    line-height: 1.5;
+  }
+  .form-control,
+  .search-bar {
+    border:1px solid rgba(29, 45, 68, 1);
+    background: ;
     border-radius: 0;
-    color:#fff;
+    color: #fff;
+    justify-content: space-between;
+  }
+  
+  .btn-primary,
+  .input-group-btn {
+    color: #92AC86;
+    background: rgba(29, 45, 68, 1);
+    border: rgba(29, 45, 68, 1);
+    display: flex;
+    
   }
   .description button:hover {
-    border:1px solid #92AC86;
-    background: #92AC86;
+    border:1px solid rgba(29, 45, 68, 1);
+    background: rgba(29, 45, 68, 1);
     color:#fff;
   }
+  .row {
+    display: flex;
+    position: relative;
+    justify-content: center;
+  }
+ 
   .features {
     margin: 4em auto;
     padding: 1em;
@@ -99,9 +135,10 @@ body {
     background-color: rgba(29, 45, 68, 1);
     color: #ccc;
     padding: 60px 0 30px;
+    align-items: flex-end;
   }
   .footer-copyright {
     color: #666;
     padding: 40px 0;
   }
-  rgba(29, 45, 68, 1)
+  
