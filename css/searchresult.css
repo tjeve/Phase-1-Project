@@ -41,15 +41,28 @@
 
 .grid-item .inner .icons .icon{
     display: none;
-    padding: 0 5px;
+    padding: 0 10px;
     position: relative;
     /* z-index: 1; */
 }
 
-.grid-item .inner .icons .link2details{
+.grid-item .inner .icons .icon{
     color: white;
 }
 
-.grid-item .inner .icons .link2favorites{
+.grid-item .inner .icons .link2details a{
+    text-decoration: none;
     color: white;
+}
+
+.grid-item .inner .icons .icon i:hover{
+    color: #c9c6c6;
+}
+
+
+.grid-item .inner .icons .link2favorites .added{
+    color: #fd5f7a;
+}
+.grid-item .inner .icons .link2favorites i.added:hover{
+    color: #fa8c9e;
 }
