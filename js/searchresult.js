@@ -7,28 +7,38 @@ const loadMore = document.querySelector('#loadMore')
 const inputTerm = document.querySelector('#input-term')
 const inputLocation = document.querySelector('#input-location')
 const btnSearch = document.querySelector('#btn-search')
-const queryLimit = 50
-let searchStats = {
-  'params': {
-    term: null,
-    limit: null,
-    latitude: null,
-    longitude: null,
-    location: null
-  },
-  'total': null,
-  'page': null,
-  'totalPages': null
-}
+const queryLimit = 10
+let searchStats = initStats()
+
+let masonry = new window.Masonry(searchResult, {
+  // options
+  itemSelector: '.grid-item',
+  columnWidth: 350
+})
 
 console.assert(searchResult, 'searchResult is missing!')
 console.assert(inputTerm, 'inputTerm is missing...')
 console.assert(inputLocation, 'inputLocation is missing...')
 console.assert(btnSearch, 'btnSearch is missing...')
-//console.log(inputTerm.value)
-//console.log(inputLocation.value)
+// console.log(inputTerm.value)
+// console.log(inputLocation.value)
 
 btnSearch.addEventListener('click', searchBusiness)
+
+function initStats(){
+  return {
+    params: {
+      term: null,
+      limit: null,
+      latitude: null,
+      longitude: null,
+      location: null
+    },
+    total: null,
+    page: null,
+    totalPages: null
+  }
+}
 
 function addEventListenersToResults () {
   const baseNodes = searchResult.querySelectorAll('.grid-item .inner')
@@ -45,9 +55,9 @@ function addEventListenersToResults () {
   })
 }
 
-function handleClickAddToFavorite(e){
+function handleClickAddToFavorite (e) {
   const elem = e.target
-  if (elem.classList.contains('added')){
+  if (elem.classList.contains('added')) {
     elem.classList.remove('added')
     elem.classList.remove('fas')
     elem.classList.add('far')
@@ -56,9 +66,7 @@ function handleClickAddToFavorite(e){
     elem.classList.remove('far')
     elem.classList.add('fas')
   }
-
 }
-
 
 function toggleDisplayIcons (e) {
   e.preventDefault()
@@ -101,7 +109,8 @@ function searchBusiness () {
         limit: queryLimit,
         latitude: null,
         longitude: null,
-        location: null
+        location: null,
+        offset: searchStats.page !== null ? searchStats.page * queryLimit : 0
       }
       if (inputLocation.value === '') {
         params.latitude = position.latitude
@@ -109,20 +118,22 @@ function searchBusiness () {
       } else {
         params.location = inputLocation.value
       }
+      console.log(searchStats.params)
+      console.log(params)
+      console.log(isEquivalentObject(searchStats.params, params))
+
+      if (!isEquivalentObject(searchStats.params, params)) {
+        searchResult.innerHTML = ''
+        searchStats = initStats()
+      }
       searchStats.params = params
       fetchYelpAPI(yelpUrlBusinessSearch, params, true)
         .then(checkResponseAndReturnJson)
         .then(handleAPIReponse)
         .then(completeAllImageLoading)
-        .then(function (promiseArray) {
-          // console.log(promiseArray)
-          Promise.allSettled(promiseArray)
-            .then(masonry)
-            .then(addEventListenersToResults)
-            .then(addLoadMoreButton)
-            .catch(function (err) {
-              console.error(err.message)
-            })
+        .then(organaizeImages)
+        .catch(err => {
+          console.error(err.message)
         })
     })
     .catch(err => {
@@ -130,23 +141,48 @@ function searchBusiness () {
     })
 }
 
-function addLoadMoreButton(){
-  const btnLoadMore = document.createElement('button')
-  btnLoadMore.innerText = 'Load More Images!'
-  if (searchStats.page < searchStats.totalPages) {
-    loadMore.appendChild(btnLoadMore)
-  } else {
-    loadMore.removeChild()
-  }
-  btnLoadMore.addEventListener('click', loadMoreImages)
+function organaizeImages(promiseArray){
+    console.log(promiseArray)
+    Promise.allSettled(promiseArray)
+      .then(function () {
+        console.log('loaded all items!')
+        //const imgs = searchResult.querySelectorAll('.grid-item')
+        //masonry.appended(imgs)
+        //masonry.layout()
+        masonry = new window.Masonry(searchResult, {
+          // options
+          itemSelector: '.grid-item',
+          columnWidth: 350
+        })
+      })
+      .then(addEventListenersToResults)
+      .then(addLoadMoreButton)
+      .catch(function (err) {
+        console.error(err.message)
+      })
 }
 
-function loadMoreImages(e){
-
+function addLoadMoreButton () {
+  console.log(searchStats)
+  if (searchStats.page < searchStats.totalPages) {
+    if (!loadMore.hasChildNodes()) {
+      const btnLoadMore = document.createElement('button')
+      btnLoadMore.innerText = 'Load More Images!'    
+      loadMore.appendChild(btnLoadMore)
+      btnLoadMore.addEventListener('click', function () {
+        searchBusiness()
+      })    
+    }
+  } else {
+    if (loadMore.hasChildNodes()) {
+      console.log(loadMore)
+      loadMore.innerHTML = ''
+    }
+  }
 }
 
 function completeAllImageLoading () {
-  const imgs = document.querySelectorAll('img')
+  const imgs = document.querySelectorAll(`img.page-${searchStats.page}`)
   const promiseArray = []
   imgs.forEach(function (img) {
     const promise = new Promise(function (resolve, reject) {
@@ -160,10 +196,11 @@ function completeAllImageLoading () {
 }
 
 function fetchYelpAPI (yelpUrl, params, corsAnywhere) {
+  console.log(params)
   const url = corsAnywhere
     ? corsAnywhereUrl + generateUrlWithParams(yelpUrl, params)
     : generateUrlWithParams(yelpUrl, params)
-  //console.log(url)
+  // console.log(url)
   return window.fetch(url, {
     headers: {
       Authorization: 'Bearer ' + YELP_API_KEY
@@ -181,12 +218,13 @@ function checkResponseAndReturnJson (res) {
 }
 
 function handleAPIReponse (json) {
+  searchStats.page = (searchStats.page === null) ? 1 : searchStats.page + 1
   searchStats.total = json.total
-  searchStats.page = 1
-  searchStats.totalPages = Math.floor(json.total / queryLimit)
-  console.log(searchStats)
+  searchStats.totalPages = Math.floor(json.total / queryLimit) 
   const imageUrls = json.businesses.map(function (business) {
-    const nextPath = window.location.pathname.endsWith('.html') ? 'restinfo.html': 'restinfo'
+    const nextPath = window.location.pathname.endsWith('.html')
+      ? 'restinfo.html'
+      : 'restinfo'
     const nextUrl = nextPath + '?id=' + business.id
     return `<div class="grid-item">
               <div class="inner">
@@ -199,15 +237,15 @@ function handleAPIReponse (json) {
                     <i class="far fa-heart fa-5x"></i>
                   </div>
                 </div>
-                <img src=${business.image_url}>
+                <img class="page-${searchStats.page}" src=${business.image_url}>
               </div>
             </div>`
   })
   let dummyElement = document.createElement('div')
   dummyElement.innerHTML = imageUrls.join('')
 
-  while(dummyElement.firstChild) {
-      searchResult.appendChild(dummyElement.firstChild);
+  while (dummyElement.firstChild) {
+    searchResult.appendChild(dummyElement.firstChild)
   }
   console.log(json.businesses)
 }
@@ -234,11 +272,10 @@ function generateUrlWithParams (baseUrl, params) {
   return baseUrl + '?' + ret.join('&')
 }
 
-function masonry () {
-  const msnryArea = document.querySelector('.grid')
-  return new window.Masonry(msnryArea, {
-    // options
-    itemSelector: '.grid-item',
-    columnWidth: 350
+function isEquivalentObject (obj1, obj2) {
+  if (Object.keys(obj1).length !== Object.keys(obj2).length) return false
+  Object.keys(obj1).forEach(function (key) {
+    if (obj1[key] !== obj2[key]) return false
   })
+  return true
 }
