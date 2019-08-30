@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/restinfo.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/restinfo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" integrity="sha256-WAgYcAck1C1/zEl5sBl5cfyhxtLgKGdpI3oKyJffVRI=" crossorigin="anonymous" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Restaurant Results</title>
@@ -32,7 +33,6 @@
         </ul>
        </div>
     </nav>
-    <header>Logo and Name Goes Here</header>
     <main>
         <div id="rest-info-container">
             <div class="rest-info">
@@ -42,17 +42,36 @@
                 <div class="rest-address">Restaurant address goes here</div>
                 <div class="rest-distance-from-user">Restaurant distance from user goes here</div>
             </div>
-            <div class="rest-map-container">
-                <div>Google Map goes here</div>
+            <div id="rest-map-container">
+                <div id="map"></div>
                 <div>Get directions goes here</div>
             </div>
         </div>
     </main>
+    <footer class="page-footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-12">
+            <h6 class="text-uppercase font-weight-bold">Additional Information</h6>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque interdum quam odio, quis placerat ante luctus eu. Sed aliquet dolor id sapien rutrum, id vulputate quam iaculis.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque interdum quam odio, quis placerat ante luctus eu. Sed aliquet dolor id sapien rutrum, id vulputate quam iaculis.</p>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <h6 class="text-uppercase font-weight-bold">Contact</h6>
+            <p>1640 Riverside Drive, Hill Valley, California
+            <br/>info@mywebsite.com
+            <br/>+ 01 234 567 88
+            <br/>+ 01 234 567 89</p>
+          </div>
+        </div>
+        <div class="footer-copyright text-center">© 2019 Copyright: MyWebsite.com</div>
+      </footer>
 
     <!-- scripts -->
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKpVPcTeEAp1nDw7UigighCQJvjO62mq8&callback=initMap"></script>
     <script src="js/apikey.js"></script>
     <script src="js/restinfo.js"></script>
 </body>

@@ -1,10 +1,24 @@
-.rest-info-container {
+#rest-info-container {
     display: flex;
+    justify-content: center;
     flex-direction: row;
+    background-image: url('/img/bowl.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    padding: 30px;
+    color: yellow;
 }
 .rest-info {
+    display: flex;
+    flex-direction: column;
     border: solid navy;
+    justify-content: space-around;
 }
 .rest-map-container {
     border: solid orange;
+}
+#map {
+    height: 400px;
+    width: 100%;
 }
