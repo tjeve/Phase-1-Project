@@ -52,6 +52,7 @@ body {
     font-size: 1.3rem;
     line-height: 1.5;
   }
+  
   .about {
     left: 50%;
     position: absolute;
@@ -60,7 +61,7 @@ body {
     text-align: center;
     border-radius: 100px;
     padding: 60px;
-    background-color: rgba(29, 45, 68, 1); 
+    background-color: ; 
   }
   .about h1 {
     color: #92AC86;
@@ -75,9 +76,9 @@ body {
   .search-bar {
     border:1px solid rgba(29, 45, 68, 1);
     background: ;
-    border-radius: 0;
+    border-radius: 25px;
     color: #fff;
-    justify-content: space-between;
+    
   }
   
   .btn-primary,
@@ -86,7 +87,8 @@ body {
     background: rgba(29, 45, 68, 1);
     border: rgba(29, 45, 68, 1);
     display: flex;
-    
+    border-radius: 25px;
+    justify-content: space-between;
   }
   .description button:hover {
     border:1px solid rgba(29, 45, 68, 1);
@@ -135,7 +137,7 @@ body {
     background-color: rgba(29, 45, 68, 1);
     color: #ccc;
     padding: 60px 0 30px;
-    align-items: flex-end;
+    
   }
   .footer-copyright {
     color: #666;
