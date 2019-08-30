@@ -30,22 +30,25 @@ function init () {
       const restInfoContainer = document.getElementById('rest-info-container')
       restInfoContainer.innerHTML = renderRestaurantInfo(restInfo)
       console.log(restInfo.coordinates)
-      mapAPI()
+      // mapAPI()
+      const restMapContainer= document.getElementById('rest-map-container')
+      restMapContainer.innerHTML= initMap(restInfo)
     }
   })
 
-  function mapAPI() {
-    $.ajax({
-      url: `https://www.google.com/maps/embed/v1/MODE?key=${GOOGLE_API_KEY}&parameters`
-      success: console.log("OMG, IT WORKED!")
-    })
-  }
+//   function mapAPI() { // if initMap doesn't work, try this method and see if it does.
+//     $.ajax({
+//       url: `https://www.google.com/maps/embed/v1/MODE?key=${GOOGLE_API_KEY}&parameters`
+//       success: console.log("OMG, IT WORKED!")
+//     })
+//   }
+// }
   // Google Maps
   function initMap (restInfo) {
-    // The location of Uluru
+    // The location of Restaurant
     var coordinates = restInfo.coordinates
-    // The map, centered at Uluru
-    var map = new google.mapgit s.Map(
+    // The map, centered at Restaurant
+    var map = new google.maps.Map(
       document.getElementById('map'), { zoom: 4, center: coordinates })
     // The marker, positioned at Uluru
     var marker = new google.maps.Marker({ position: coordinates, map: map })
@@ -61,7 +64,7 @@ function init () {
   //Place the code below into the google map api request
   // const restMapContainer= document.getElementById('rest-map-container')
   // restMapContainer.innerHTML=  
-}
+
 
 // let map = new google.maps.Map(document.getElementById('map'), {
 //   center: {lat: -34.397, lng: 150.644},
