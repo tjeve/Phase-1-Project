@@ -22,10 +22,10 @@
               <a class="nav-link" href="#">Home</a>
             </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+                <a class="nav-link" href="../html/about.html">About</a>
               </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Contact</a>
+                  <a class="nav-link" href="../html/contact.html">Contact</a>
                 </li>
           </ul>
          </div>
@@ -35,24 +35,30 @@
           <div class="description">
               <h1>Welcome to Hungry Eyes!</h1>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque interdum quam odio, quis placerat ante luctus eu. Sed aliquet dolor id sapien rutrum, id vulputate quam iaculis. Suspendisse consectetur mi id libero fringilla, in pharetra serper.</p>
-              <form id="search-form">
+              <div id="search-form">
                 <div class="row">
                   <div class="column">
                 <div class="input-group input-group-md">
-                  <input class="form-control search-bar" placeholder="Hungry">
+                  <input class="form-control search-bar" id="input-term" placeholder="Hungry">
                   
                   </div>
                 </div>
                 <div class="column">
                   <div class="input-group input-group-md">
-                      <input class="form-control search-bar" placeholder="Location">	
-                      <button class="btn btn-primary input-group-btn" type="submit">Search</button>
+                      <input class="form-control search-bar" id="input-location" placeholder="Location">	
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="input-group input-group-md">
+                      <button class="btn btn-primary input-group-btn" id="btn-search">Search</button>
                   </div>
                 </div>
                 </div>
-              </form>
+              </div>
           </div>
       </header>
+      <div id="searchResult" class="grid"></div>
+      <div id="loadMore"></div>
       <div class="container features">
           <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-12">
@@ -80,6 +86,9 @@
             </div>
           </div> 
         </div>
+       
+
+
         <footer class="page-footer">
             <div class="container">
               <div class="row">
@@ -113,5 +122,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="/js/layout.js"></script>
+    <script src="/js/apikey.js"></script>
+    <script src="/js/searchresult.js"></script>
   </body>
 </html>
