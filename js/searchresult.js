@@ -2,6 +2,7 @@
 
 const corsAnywhereUrl = 'https://cors-anywhere.herokuapp.com/'
 const yelpUrlBusinessSearch = 'https://api.yelp.com/v3/businesses/search'
+const yelpUrlBusinessDetail = 'https://api.yelp.com/v3/businesses/'
 const searchResult = document.querySelector('#searchResult')
 const loadMore = document.querySelector('#loadMore')
 const inputTerm = document.querySelector('#input-term')
@@ -10,11 +11,11 @@ const btnSearch = document.querySelector('#btn-search')
 const queryLimit = 10
 let searchStats = initStats()
 
-let masonry = new window.Masonry(searchResult, {
-  // options
-  itemSelector: '.grid-item',
-  columnWidth: 350
-})
+// let masonry = new window.Masonry(searchResult, {
+//   // options
+//   itemSelector: '.grid-item',
+//   columnWidth: 350
+// })
 
 console.assert(searchResult, 'searchResult is missing!')
 console.assert(inputTerm, 'inputTerm is missing...')
@@ -25,7 +26,20 @@ console.assert(btnSearch, 'btnSearch is missing...')
 
 btnSearch.addEventListener('click', searchBusiness)
 
-function initStats(){
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: 'AIzaSyBbt9u-aIn5UtC0JTcUEAwz9xrxzkzkJOc',
+  authDomain: 'digitalcrafts-ph-1566664527167.firebaseapp.com',
+  databaseURL: 'https://digitalcrafts-ph-1566664527167.firebaseio.com',
+  projectId: 'digitalcrafts-ph-1566664527167',
+  storageBucket: 'digitalcrafts-ph-1566664527167.appspot.com',
+  messagingSenderId: '433077063857',
+  appId: '1:433077063857:web:0f9d8ef862b9d6a6'
+}
+// Initialize Firebase
+window.firebase.initializeApp(firebaseConfig)
+
+function initStats () {
   return {
     params: {
       term: null,
@@ -44,7 +58,7 @@ function addEventListenersToResults () {
   const baseNodes = searchResult.querySelectorAll('.grid-item .inner')
   baseNodes.forEach(function (node) {
     const img = node.querySelector('img')
-    const classFilter = node.querySelector('.filter')
+    // const classFilter = node.querySelector('.filter')
     const classIcon = node.querySelector('.icons')
     const link2favorites = node.querySelector('.link2favorites')
 
@@ -57,6 +71,7 @@ function addEventListenersToResults () {
 
 function handleClickAddToFavorite (e) {
   const elem = e.target
+  const baseElement = elem.closest('.grid-item')
   if (elem.classList.contains('added')) {
     elem.classList.remove('added')
     elem.classList.remove('fas')
@@ -66,6 +81,20 @@ function handleClickAddToFavorite (e) {
     elem.classList.remove('far')
     elem.classList.add('fas')
   }
+
+  const restaurantId = baseElement.getAttribute('restaurant-id')
+  console.log(restaurantId)
+
+  fetchYelpAPI(yelpUrlBusinessDetail + restaurantId, {}, true)
+    .then(checkResponseAndReturnJson)
+    .then(function (json) {
+      const db = window.firebase.database()
+      const favorites = db.ref('/everyone/favorites')
+      favorites.push(json)
+    })
+    .catch(err => {
+      console.error(err.message)
+    })
 }
 
 function toggleDisplayIcons (e) {
@@ -141,25 +170,25 @@ function searchBusiness () {
     })
 }
 
-function organaizeImages(promiseArray){
-    console.log(promiseArray)
-    Promise.allSettled(promiseArray)
-      .then(function () {
-        console.log('loaded all items!')
-        //const imgs = searchResult.querySelectorAll('.grid-item')
-        //masonry.appended(imgs)
-        //masonry.layout()
-        masonry = new window.Masonry(searchResult, {
-          // options
-          itemSelector: '.grid-item',
-          columnWidth: 350
-        })
+function organaizeImages (promiseArray) {
+  console.log(promiseArray)
+  Promise.allSettled(promiseArray)
+    .then(function () {
+      console.log('loaded all items!')
+      // const imgs = searchResult.querySelectorAll('.grid-item')
+      // masonry.appended(imgs)
+      // masonry.layout()
+      return new window.Masonry(searchResult, {
+        // options
+        itemSelector: '.grid-item',
+        columnWidth: 350
       })
-      .then(addEventListenersToResults)
-      .then(addLoadMoreButton)
-      .catch(function (err) {
-        console.error(err.message)
-      })
+    })
+    .then(addEventListenersToResults)
+    .then(addLoadMoreButton)
+    .catch(function (err) {
+      console.error(err.message)
+    })
 }
 
 function addLoadMoreButton () {
@@ -167,11 +196,11 @@ function addLoadMoreButton () {
   if (searchStats.page < searchStats.totalPages) {
     if (!loadMore.hasChildNodes()) {
       const btnLoadMore = document.createElement('button')
-      btnLoadMore.innerText = 'Load More Images!'    
+      btnLoadMore.innerText = 'Load More Images!'
       loadMore.appendChild(btnLoadMore)
       btnLoadMore.addEventListener('click', function () {
         searchBusiness()
-      })    
+      })
     }
   } else {
     if (loadMore.hasChildNodes()) {
@@ -218,19 +247,19 @@ function checkResponseAndReturnJson (res) {
 }
 
 function handleAPIReponse (json) {
-  searchStats.page = (searchStats.page === null) ? 1 : searchStats.page + 1
+  searchStats.page = searchStats.page === null ? 1 : searchStats.page + 1
   searchStats.total = json.total
-  searchStats.totalPages = Math.floor(json.total / queryLimit) 
+  searchStats.totalPages = Math.floor(json.total / queryLimit)
   const imageUrls = json.businesses.map(function (business) {
     const nextPath = window.location.pathname.endsWith('.html')
       ? 'restinfo.html'
       : 'restinfo'
     const nextUrl = nextPath + '?id=' + business.id
-    return `<div class="grid-item">
+    return `<div class="grid-item" restaurant-id="${business.id}">
               <div class="inner">
                 <div class="filter"></div>
                 <div class="icons">
-                  <div restaurant-id="${business.id}" class="icon link2details">
+                  <div class="icon link2details">
                     <a href="${nextUrl}" target="_blank"><i class="fas fa-info-circle fa-5x"></i></a>
                   </div>
                   <div class="icon link2favorites">
@@ -241,7 +270,7 @@ function handleAPIReponse (json) {
               </div>
             </div>`
   })
-  let dummyElement = document.createElement('div')
+  const dummyElement = document.createElement('div')
   dummyElement.innerHTML = imageUrls.join('')
 
   while (dummyElement.firstChild) {
