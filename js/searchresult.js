@@ -161,7 +161,7 @@ function searchBusiness () {
         .then(handleAPIReponse)
         .then(completeAllImageLoading)
         .then(organaizeImages)
-        .then(moveToSearchResult)
+        // .then(moveToSearchResult)
         .catch(err => {
           console.error(err.message)
         })
@@ -183,12 +183,17 @@ function organaizeImages (promiseArray) {
       imgs.forEach(function (img) {
         img.style.display = 'block'
       })
-      return new window.Masonry(searchResult, {
+      const masonry = new window.Masonry(searchResult, {
         // options
         itemSelector: '.grid-item',
         columnWidth: 350,
-        fitWidth: true
+        fitWidth: true,
+        isInitLayout: false
       })
+      masonry.on('layoutComplete', function () {
+        moveToSearchResult()
+      })
+      masonry.layout()
     })
     .then(addEventListenersToResults)
     .then(addLoadMoreButton)
@@ -326,28 +331,9 @@ function moveToSearchResult () {
   const speed = 500
   const imgs = document.querySelectorAll(`img.page-${searchStats.page}`)
   if (imgs.length > 0) {
-    // const position = $(imgs[0].closest('.grid-item')).offset().top
-    const searchResultRect = searchResult.getBoundingClientRect()
-    const rect = imgs[0].closest('.grid-item').getBoundingClientRect()
-    console.log(searchResultRect, rect)
-    $('html, body').animate(
-      { scrollTop: rect.top },
-      speed,
-      'swing'
-    )
-  }
-}
-
-function cumulativeOffset (element) {
-  let top = 0
-  let left = 0
-  do {
-    top += element.offsetTop || 0
-    left += element.offsetLeft || 0
-    element = element.offsetParent
-  } while (element)
-  return {
-    top: top,
-    left: left
+    const offsetTop =
+      $(searchResult).offset().top +
+      Number(imgs[0].closest('.grid-item').style.top.replace('px', ''))
+    $('html, body').animate({ scrollTop: offsetTop }, speed, 'swing')
   }
 }
