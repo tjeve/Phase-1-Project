@@ -132,7 +132,6 @@ function searchBusiness () {
   getPositionFromIPData()
     .then(checkResponseAndReturnJson)
     .then(position => {
-      // console.log(position)
       const params = {
         term: inputTerm.value,
         limit: queryLimit,
@@ -147,10 +146,6 @@ function searchBusiness () {
       } else {
         params.location = inputLocation.value
       }
-      console.log(searchStats.params)
-      console.log(params)
-      console.log(isEquivalentObject(searchStats.params, params))
-
       if (!isEquivalentObject(searchStats.params, params)) {
         searchResult.innerHTML = ''
         searchStats = initStats()
@@ -161,7 +156,6 @@ function searchBusiness () {
         .then(handleAPIReponse)
         .then(completeAllImageLoading)
         .then(organaizeImages)
-        // .then(moveToSearchResult)
         .catch(err => {
           console.error(err.message)
         })
@@ -173,12 +167,8 @@ function searchBusiness () {
 
 function organaizeImages (promiseArray) {
   console.log(promiseArray)
-  Promise.allSettled(promiseArray)
+  Promise.all(promiseArray)
     .then(function () {
-      // console.log('loaded all items!')
-      // const imgs = searchResult.querySelectorAll('.grid-item')
-      // masonry.appended(imgs)
-      // masonry.layout()
       const imgs = document.querySelectorAll(`img.page-${searchStats.page}`)
       imgs.forEach(function (img) {
         img.style.display = 'block'
