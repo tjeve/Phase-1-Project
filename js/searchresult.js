@@ -161,6 +161,7 @@ function searchBusiness () {
         .then(handleAPIReponse)
         .then(completeAllImageLoading)
         .then(organaizeImages)
+        .then(moveToSearchResult)
         .catch(err => {
           console.error(err.message)
         })
@@ -174,14 +175,19 @@ function organaizeImages (promiseArray) {
   console.log(promiseArray)
   Promise.allSettled(promiseArray)
     .then(function () {
-      console.log('loaded all items!')
+      // console.log('loaded all items!')
       // const imgs = searchResult.querySelectorAll('.grid-item')
       // masonry.appended(imgs)
       // masonry.layout()
+      const imgs = document.querySelectorAll(`img.page-${searchStats.page}`)
+      imgs.forEach(function (img) {
+        img.style.display = 'block'
+      })
       return new window.Masonry(searchResult, {
         // options
         itemSelector: '.grid-item',
-        columnWidth: 350
+        columnWidth: 350,
+        fitWidth: true
       })
     })
     .then(addEventListenersToResults)
@@ -197,6 +203,12 @@ function addLoadMoreButton () {
     if (!loadMore.hasChildNodes()) {
       const btnLoadMore = document.createElement('button')
       btnLoadMore.innerText = 'Load More Images!'
+      btnLoadMore.classList.add('btn', 'btn-default')
+      btnLoadMore.style.color = '#92AC86'
+      btnLoadMore.style.backgroundColor = 'rgba(29, 45, 68, 1)'
+      btnLoadMore.style.margin = '10px'
+      btnLoadMore.style.width = '80%'
+      loadMore.style.textAlign = 'center'
       loadMore.appendChild(btnLoadMore)
       btnLoadMore.addEventListener('click', function () {
         searchBusiness()
@@ -214,6 +226,7 @@ function completeAllImageLoading () {
   const imgs = document.querySelectorAll(`img.page-${searchStats.page}`)
   const promiseArray = []
   imgs.forEach(function (img) {
+    img.style.display = 'none'
     const promise = new Promise(function (resolve, reject) {
       img.addEventListener('load', function () {
         resolve()
@@ -307,4 +320,34 @@ function isEquivalentObject (obj1, obj2) {
     if (obj1[key] !== obj2[key]) return false
   })
   return true
+}
+
+function moveToSearchResult () {
+  const speed = 500
+  const imgs = document.querySelectorAll(`img.page-${searchStats.page}`)
+  if (imgs.length > 0) {
+    // const position = $(imgs[0].closest('.grid-item')).offset().top
+    const searchResultRect = searchResult.getBoundingClientRect()
+    const rect = imgs[0].closest('.grid-item').getBoundingClientRect()
+    console.log(searchResultRect, rect)
+    $('html, body').animate(
+      { scrollTop: rect.top },
+      speed,
+      'swing'
+    )
+  }
+}
+
+function cumulativeOffset (element) {
+  let top = 0
+  let left = 0
+  do {
+    top += element.offsetTop || 0
+    left += element.offsetLeft || 0
+    element = element.offsetParent
+  } while (element)
+  return {
+    top: top,
+    left: left
+  }
 }

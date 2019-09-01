@@ -1,6 +1,6 @@
-/* #searchResult{
-    
-} */
+#searchResult{
+  margin: 0 auto; 
+} 
 
 .grid-item{
     width: 350px;
