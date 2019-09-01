@@ -83,7 +83,7 @@ function handleClickAddToFavorite (e) {
   }
 
   const restaurantId = baseElement.getAttribute('restaurant-id')
-  console.log(restaurantId)
+  // console.log(restaurantId)
 
   fetchYelpAPI(yelpUrlBusinessDetail + restaurantId, {}, true)
     .then(checkResponseAndReturnJson)
@@ -146,6 +146,8 @@ function searchBusiness () {
       } else {
         params.location = inputLocation.value
       }
+      // console.log(searchStats.params, params)
+      // console.log(isEquivalentObject(searchStats.params, params))
       if (!isEquivalentObject(searchStats.params, params)) {
         searchResult.innerHTML = ''
         searchStats = initStats()
@@ -166,7 +168,7 @@ function searchBusiness () {
 }
 
 function organaizeImages (promiseArray) {
-  console.log(promiseArray)
+  // console.log(promiseArray)
   Promise.all(promiseArray)
     .then(function () {
       const imgs = document.querySelectorAll(`img.page-${searchStats.page}`)
@@ -193,7 +195,7 @@ function organaizeImages (promiseArray) {
 }
 
 function addLoadMoreButton () {
-  console.log(searchStats)
+  // console.log(searchStats)
   if (searchStats.page < searchStats.totalPages) {
     if (!loadMore.hasChildNodes()) {
       const btnLoadMore = document.createElement('button')
@@ -211,7 +213,7 @@ function addLoadMoreButton () {
     }
   } else {
     if (loadMore.hasChildNodes()) {
-      console.log(loadMore)
+      // console.log(loadMore)
       loadMore.innerHTML = ''
     }
   }
@@ -233,7 +235,7 @@ function completeAllImageLoading () {
 }
 
 function fetchYelpAPI (yelpUrl, params, corsAnywhere) {
-  console.log(params)
+  // console.log(params)
   const url = corsAnywhere
     ? corsAnywhereUrl + generateUrlWithParams(yelpUrl, params)
     : generateUrlWithParams(yelpUrl, params)
@@ -284,7 +286,7 @@ function handleAPIReponse (json) {
   while (dummyElement.firstChild) {
     searchResult.appendChild(dummyElement.firstChild)
   }
-  console.log(json.businesses)
+  // console.log(json.businesses)
 }
 
 // function getPosition (options) {
@@ -311,10 +313,14 @@ function generateUrlWithParams (baseUrl, params) {
 
 function isEquivalentObject (obj1, obj2) {
   if (Object.keys(obj1).length !== Object.keys(obj2).length) return false
+  let result = true
   Object.keys(obj1).forEach(function (key) {
-    if (obj1[key] !== obj2[key]) return false
+    // console.log(key, obj1[key] === obj2[key])
+    if (key !== 'offset' && obj1[key] !== obj2[key]) {
+      result = false
+    }
   })
-  return true
+  return result
 }
 
 function moveToSearchResult () {
