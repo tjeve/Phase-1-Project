@@ -42,23 +42,81 @@ function initStats () {
 }
 
 function addEventListenersToResults () {
-  const baseNodes = searchResult.querySelectorAll('.grid-item .inner')
-  baseNodes.forEach(function (node) {
-    const img = node.querySelector('img')
-    // const classFilter = node.querySelector('.filter')
-    const classIcon = node.querySelector('.icons')
-    const link2favorites = node.querySelector('.link2favorites')
-
+  const imgs = document.querySelectorAll(`img.page-${searchStats.page}`)
+  imgs.forEach(function (img) {
+    const baseNode = img.closest('.inner')
+    // const img = node.querySelector('img')
+    const classIcon = baseNode.querySelector('.icons')
+    const link2favorites = baseNode.querySelector('.link2favorites')
     console.assert(link2favorites, 'link2favorites is missing')
     img.addEventListener('mouseenter', toggleDisplayIcons)
     classIcon.addEventListener('mouseleave', toggleDisplayIcons)
-    link2favorites.addEventListener('click', handleClickAddToFavorite)
+    link2favorites.addEventListener('click', handleClickFavorite)
+  })
+  const db = window.firebase.database()
+  const favorites = db.ref('/everyone/favorites')
+  favorites.once('value', function (data) {
+    if (data.exists()) {
+      const favoritesData = data.val()
+      const favoriteBusinessIds = Object.keys(favoritesData).map(function (key) {
+        return favoritesData[key].id
+      })
+      imgs.forEach(function (img) {
+        const baseNode = img.closest('.grid-item')
+        const link2favorites = baseNode.querySelector('.link2favorites i')
+        if (
+          favoriteBusinessIds.includes(baseNode.getAttribute('restaurant-id'))
+        ) {
+          // console.log(baseNode.getAttribute('restaurant-id'))
+          toggleFavoriteIcon(link2favorites)
+        }
+      })
+    }
   })
 }
 
-function handleClickAddToFavorite (e) {
+function handleClickFavorite (e) {
   const elem = e.target
   const baseElement = elem.closest('.grid-item')
+  // console.log(elem)
+  toggleFavoriteIcon(elem)
+  const restaurantId = baseElement.getAttribute('restaurant-id')
+  // console.log(restaurantId)
+  const db = window.firebase.database()
+  const favorites = db.ref('/everyone/favorites')
+  favorites.once('value', function (data) {
+    if (data.exists()) {
+      const favoritesData = data.val()
+      const favoriteBusinessIds = {}
+      Object.keys(favoritesData).map(function (key) {
+        favoriteBusinessIds[favoritesData[key].id] = key
+      })
+      if (Object.keys(favoriteBusinessIds).includes(restaurantId)) {
+        const deleteKey = favoriteBusinessIds[restaurantId]
+        favorites.child(deleteKey).remove()
+        // console.log(deleteKey)
+      } else {
+        fetchDetailedBusinessAndSave(restaurantId, favorites)
+      }
+    } else {
+      fetchDetailedBusinessAndSave(restaurantId, favorites)
+    }
+  })
+}
+
+function fetchDetailedBusinessAndSave (restaurantId, firebaseRef) {
+  fetchYelpAPI(yelpUrlBusinessDetail + restaurantId, {}, true)
+    .then(checkResponseAndReturnJson)
+    .then(function (json) {
+      // console.log(json)
+      firebaseRef.push(json)
+    })
+    .catch(err => {
+      console.error(err.message)
+    })
+}
+
+function toggleFavoriteIcon (elem) {
   if (elem.classList.contains('added')) {
     elem.classList.remove('added')
     elem.classList.remove('fas')
@@ -68,20 +126,6 @@ function handleClickAddToFavorite (e) {
     elem.classList.remove('far')
     elem.classList.add('fas')
   }
-
-  const restaurantId = baseElement.getAttribute('restaurant-id')
-  // console.log(restaurantId)
-
-  fetchYelpAPI(yelpUrlBusinessDetail + restaurantId, {}, true)
-    .then(checkResponseAndReturnJson)
-    .then(function (json) {
-      const db = window.firebase.database()
-      const favorites = db.ref('/everyone/favorites')
-      favorites.push(json)
-    })
-    .catch(err => {
-      console.error(err.message)
-    })
 }
 
 function toggleDisplayIcons (e) {
@@ -186,7 +230,7 @@ function addLoadMoreButton () {
   if (searchStats.page < searchStats.totalPages) {
     if (!loadMore.hasChildNodes()) {
       const btnLoadMore = document.createElement('button')
-      btnLoadMore.innerText = 'Load More Images!'
+      btnLoadMore.innerText = 'Still Hungry???'
       btnLoadMore.classList.add('btn', 'btn-default')
       btnLoadMore.style.color = '#92AC86'
       btnLoadMore.style.backgroundColor = 'rgba(29, 45, 68, 1)'
