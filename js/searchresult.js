@@ -11,19 +11,13 @@ const btnSearch = document.querySelector('#btn-search')
 const queryLimit = 10
 let searchStats = initStats()
 let loginUser = null
+let apiKeys = null
 
-// let masonry = new window.Masonry(searchResult, {
-//   // options
-//   itemSelector: '.grid-item',
-//   columnWidth: 350
-// })
+window.firebase.auth().onAuthStateChanged(function (user) {
+  loginUser = user
+})
 
-console.assert(searchResult, 'searchResult is missing!')
-console.assert(inputTerm, 'inputTerm is missing...')
-console.assert(inputLocation, 'inputLocation is missing...')
-console.assert(btnSearch, 'btnSearch is missing...')
-// console.log(inputTerm.value)
-// console.log(inputLocation.value)
+getAPIKeys()
 
 btnSearch.addEventListener('click', searchBusiness)
 
@@ -76,12 +70,22 @@ function addEventListenersToResults () {
   })
 }
 
+function getAPIKeys () {
+  const db = window.firebase.database()
+  const firebasePath = '/apikey'
+  const apikeys = db.ref(firebasePath)
+  apikeys.once('value', function (data) {
+    apiKeys = data.val()
+    // console.log(apiKeys)
+  })
+}
+
 function getFavorites (callback) {
   const db = window.firebase.database()
   const firebasePath = loginUser
     ? `/users/${loginUser.uid}/favorites`
     : '/everyone/favorites'
-  console.log(firebasePath)
+  // console.log(firebasePath)
   const favorites = db.ref(firebasePath)
   favorites.once('value', function (data) {
     callback(data, favorites)
@@ -284,7 +288,7 @@ function fetchYelpAPI (yelpUrl, params, corsAnywhere) {
   // console.log(url)
   return window.fetch(url, {
     headers: {
-      Authorization: 'Bearer ' + YELP_API_KEY
+      Authorization: 'Bearer ' + apiKeys.yelp_api_key
     }
   })
 }
@@ -339,7 +343,7 @@ function handleAPIReponse (json) {
 
 function getPositionFromIPData () {
   return window.fetch(
-    'https://api.ipdata.co?api-key=1bf5329a7500c813f5c947083b124f22dbdd34a04647000ced91d64c'
+    'https://api.ipdata.co?api-key=' + apiKeys.ip_data
   )
 }
 
@@ -375,8 +379,3 @@ function moveToSearchResult () {
     $('html, body').animate({ scrollTop: offsetTop }, speed, 'swing')
   }
 }
-
-window.firebase.auth().onAuthStateChanged(function (user) {
-  loginUser = user
-  // console.log(user)
-})
