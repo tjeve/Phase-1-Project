@@ -10,6 +10,7 @@ const inputLocation = document.querySelector('#input-location')
 const btnSearch = document.querySelector('#btn-search')
 const queryLimit = 10
 let searchStats = initStats()
+let loginUser = null
 
 // let masonry = new window.Masonry(searchResult, {
 //   // options
@@ -53,11 +54,11 @@ function addEventListenersToResults () {
     classIcon.addEventListener('mouseleave', toggleDisplayIcons)
     link2favorites.addEventListener('click', handleClickFavorite)
   })
-  const db = window.firebase.database()
-  const favorites = db.ref('/everyone/favorites')
-  favorites.once('value', function (data) {
+
+  getFavorites(function (data) {
     if (data.exists()) {
       const favoritesData = data.val()
+      // console.log(favoritesData)
       const favoriteBusinessIds = Object.keys(favoritesData).map(function (key) {
         return favoritesData[key].id
       })
@@ -75,6 +76,18 @@ function addEventListenersToResults () {
   })
 }
 
+function getFavorites (callback) {
+  const db = window.firebase.database()
+  const firebasePath = loginUser
+    ? `/users/${loginUser.uid}/favorites`
+    : '/everyone/favorites'
+  console.log(firebasePath)
+  const favorites = db.ref(firebasePath)
+  favorites.once('value', function (data) {
+    callback(data, favorites)
+  })
+}
+
 function handleClickFavorite (e) {
   const elem = e.target
   const baseElement = elem.closest('.grid-item')
@@ -82,9 +95,7 @@ function handleClickFavorite (e) {
   toggleFavoriteIcon(elem)
   const restaurantId = baseElement.getAttribute('restaurant-id')
   // console.log(restaurantId)
-  const db = window.firebase.database()
-  const favorites = db.ref('/everyone/favorites')
-  favorites.once('value', function (data) {
+  getFavorites(function (data, ref) {
     if (data.exists()) {
       const favoritesData = data.val()
       const favoriteBusinessIds = {}
@@ -93,13 +104,13 @@ function handleClickFavorite (e) {
       })
       if (Object.keys(favoriteBusinessIds).includes(restaurantId)) {
         const deleteKey = favoriteBusinessIds[restaurantId]
-        favorites.child(deleteKey).remove()
+        ref.child(deleteKey).remove()
         // console.log(deleteKey)
       } else {
-        fetchDetailedBusinessAndSave(restaurantId, favorites)
+        fetchDetailedBusinessAndSave(restaurantId, ref)
       }
     } else {
-      fetchDetailedBusinessAndSave(restaurantId, favorites)
+      fetchDetailedBusinessAndSave(restaurantId, ref)
     }
   })
 }
@@ -364,3 +375,8 @@ function moveToSearchResult () {
     $('html, body').animate({ scrollTop: offsetTop }, speed, 'swing')
   }
 }
+
+window.firebase.auth().onAuthStateChanged(function (user) {
+  loginUser = user
+  // console.log(user)
+})

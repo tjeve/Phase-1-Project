@@ -1,12 +1,11 @@
 const listOfFavorites = document.querySelector('#listOfFavorites')
+let loginUser = null
 
-document.addEventListener('DOMContentLoaded', function () {
-  console.log('DOMLoaded!!')
-  const db = window.firebase.database()
-  const favorites = db.ref('/everyone/favorites')
-  //   console.log(favorites)
-  favorites.on('value', handleFavorites, function (errorObject) {
-    console.log('The read failed: ' + errorObject.code)
+window.firebase.auth().onAuthStateChanged(function (user) {
+  loginUser = user
+  console.log('DOM Loaded!')
+  getFavorites(function (data) {
+    handleFavorites(data)
   })
 })
 
@@ -92,9 +91,7 @@ function addEventListenersToResults () {
     classIcon.addEventListener('mouseleave', toggleDisplayIcons)
     link2favorites.addEventListener('click', handleClickFavorite)
   })
-  const db = window.firebase.database()
-  const favorites = db.ref('/everyone/favorites')
-  favorites.once('value', function (data) {
+  getFavorites(function (data, ref) {
     const favoritesData = data.val()
     const favoriteBusinessIds = Object.keys(favoritesData).map(function (key) {
       return favoritesData[key].id
@@ -118,9 +115,7 @@ function handleClickFavorite (e) {
   toggleFavoriteIcon(elem)
   const restaurantId = baseElement.getAttribute('restaurant-id')
   // console.log(restaurantId)
-  const db = window.firebase.database()
-  const favorites = db.ref('/everyone/favorites')
-  favorites.once('value', function (data) {
+  getFavorites(function (data, ref) {
     const favoritesData = data.val()
     const favoriteBusinessIds = {}
     Object.keys(favoritesData).map(function (key) {
@@ -128,7 +123,7 @@ function handleClickFavorite (e) {
     })
     if (Object.keys(favoriteBusinessIds).includes(restaurantId)) {
       const deleteKey = favoriteBusinessIds[restaurantId]
-      favorites.child(deleteKey).remove()
+      ref.child(deleteKey).remove()
       baseElement.remove()
       // console.log(deleteKey)
     }
@@ -176,4 +171,16 @@ function toggleDisplayIcons (e) {
       })
     }
   }
+}
+
+function getFavorites (callback) {
+  const db = window.firebase.database()
+  const firebasePath = loginUser
+    ? `/users/${loginUser.uid}/favorites`
+    : '/everyone/favorites'
+  console.log(firebasePath)
+  const favorites = db.ref(firebasePath)
+  favorites.once('value', function (data) {
+    callback(data, favorites)
+  })
 }
