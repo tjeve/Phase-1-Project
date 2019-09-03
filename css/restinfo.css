@@ -1,6 +1,13 @@
-.rest-info-container {
+#rest-info-container {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    background-image: url('/img/bowl.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    padding: 30px;
+    color: black;
 }
 .rest-info {
     border: solid navy;
