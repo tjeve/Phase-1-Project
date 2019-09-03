@@ -143,7 +143,7 @@ function searchBusiness () {
 
 function organaizeImages(promiseArray){
     console.log(promiseArray)
-    Promise.allSettled(promiseArray)
+    Promise.all(promiseArray)
       .then(function () {
         console.log('loaded all items!')
         //const imgs = searchResult.querySelectorAll('.grid-item')
