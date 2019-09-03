@@ -213,6 +213,7 @@ function searchBusiness () {
     })
 }
 
+
 function organaizeImages (promiseArray) {
   // console.log(promiseArray)
   Promise.all(promiseArray)
