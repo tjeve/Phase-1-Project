@@ -23,7 +23,7 @@ body {
     justify-content: flex-end;
   }
   .header {
-    background-image: url('/img/bowl.jpg');
+    background-image: url('/img/fries.jpg');
     background-size: cover;
     background-position: center;
     position: relative;
@@ -37,23 +37,6 @@ body {
     top: 0;
     background: rgba(0, 0, 0, 0.6);
   }
-  .description {
-    left: 50%;
-    position: absolute;
-    top: 45%;
-    transform: translate(-50%, -55%);
-    text-align: center;
-  }
-  .description h1 {
-    color: #92AC86;
-    font-family: 'Livvic', sans-serif
-  }
-  .description p {
-    color: #fff;
-    font-size: 1.3rem;
-    line-height: 1.5;
-  }
-  
   .about {
     left: 50%;
     position: absolute;
@@ -72,39 +55,6 @@ body {
     color: #fff;
     font-size: 1.3rem;
     line-height: 1.5;
-  }
-  .form-control,
-  .search-bar {
-    border:1px solid rgba(29, 45, 68, 1);
-    background: ;
-    border-radius: 25px;
-    color: #fff;
-    
-  }
-  
-  .btn-primary,
-  .input-group-btn {
-    color: #92AC86;
-    background: rgba(29, 45, 68, 1);
-    border: rgba(29, 45, 68, 1);
-    display: flex;
-    border-radius: 25px;
-    justify-content: space-between;
-  }
-  .description button:hover {
-    border:1px solid rgba(29, 45, 68, 1);
-    background: rgba(29, 45, 68, 1);
-    color:#fff;
-  }
-  .grid {
-    background-size: cover;
-    background-position: center;
-    position: relative;
-  }
-  .row {
-    display: flex;
-    position: relative;
-    justify-content: center;
   }
  
   .features {

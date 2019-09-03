@@ -4,6 +4,7 @@
 
 .grid-item{
     width: 350px;
+    float: center;
 }
 .grid-item img{
     width: 100%;
