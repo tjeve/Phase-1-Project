@@ -1,17 +1,29 @@
-#rest-info-container {
+#map {
+    height: 400px;  /* The height is 400 pixels */
+    width: 100%;  /* The width is the width of the web page */
+}
+#restaurant-information {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     background-image: url('/img/bowl.jpg');
     background-size: cover;
     background-position: center;
     position: relative;
-    padding: 30px;
     color: black;
 }
 .rest-info {
     border: solid navy;
+    flex: 1;
+    background-color: white;
+    color: grey;
+   
+    margin: 20px;
+    text-align: center;
 }
 .rest-map-container {
-    border: solid orange;
+    border: solid navy;
+    flex: 2;
+    margin: 20px;
+    
 }
