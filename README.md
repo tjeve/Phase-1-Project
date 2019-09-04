@@ -4,3 +4,5 @@ Contributors are:
 Kazue Sasatni
 Terrence Eveline
 Paige Ballard
+
+[![Build Status](https://travis-ci.com/tjeve/Phase-1-Project.svg?token=dsz12ZBZHtquGbpEUUm6&branch=master)](https://travis-ci.com/tjeve/Phase-1-Project)
