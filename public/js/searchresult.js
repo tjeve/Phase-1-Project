@@ -1,5 +1,3 @@
-/* global YELP_API_KEY */
-
 const corsAnywhereUrl = 'https://cors-anywhere.herokuapp.com/'
 const yelpUrlBusinessSearch = 'https://api.yelp.com/v3/businesses/search'
 const yelpUrlBusinessDetail = 'https://api.yelp.com/v3/businesses/'
@@ -213,7 +211,6 @@ function searchBusiness () {
     })
 }
 
-
 function organaizeImages (promiseArray) {
   // console.log(promiseArray)
   Promise.all(promiseArray)
@@ -309,8 +306,8 @@ function handleAPIReponse (json) {
   searchStats.totalPages = Math.floor(json.total / queryLimit)
   const imageUrls = json.businesses.map(function (business) {
     const nextPath = window.location.pathname.endsWith('.html')
-      ? 'restinfo.html'
-      : 'restinfo'
+      ? 'restInfo.html'
+      : 'restInfo'
     const nextUrl = nextPath + '?id=' + business.id
     return `<div class="grid-item" restaurant-id="${business.id}">
               <div class="inner">
