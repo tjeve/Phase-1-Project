@@ -305,9 +305,7 @@ function handleAPIReponse (json) {
   searchStats.total = json.total
   searchStats.totalPages = Math.floor(json.total / queryLimit)
   const imageUrls = json.businesses.map(function (business) {
-    const nextPath = window.location.pathname.endsWith('.html')
-      ? 'restInfo.html'
-      : 'restInfo'
+    const nextPath = '/restInfo.html'
     const nextUrl = nextPath + '?id=' + business.id
     return `<div class="grid-item" restaurant-id="${business.id}">
               <div class="inner">

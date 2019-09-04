@@ -16,9 +16,7 @@ function handleFavorites (response) {
       return responseObject[key]
     })
     const imageUrls = responseArray.map(function (business) {
-      const nextPath = window.location.pathname.endsWith('.html')
-        ? '/restInfo.html'
-        : '/restInfo'
+      const nextPath = '/restInfo.html'
       const nextUrl = nextPath + '?id=' + business.id
       return `<div class="grid-item" restaurant-id="${business.id}">
                 <div class="inner">
