@@ -1,0 +1,19 @@
+{
+  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
+  "rules": {
+    "apikey":{
+      ".read": true,
+      ".write": false
+    }, 
+    "everyone": {
+    	".read": true,
+    	".write": true 
+    },
+    "users": {
+        "$uid": {
+            ".read": "auth.uid === $uid",
+            ".write": "auth.uid === $uid"
+        }
+    }
+  }
+}
