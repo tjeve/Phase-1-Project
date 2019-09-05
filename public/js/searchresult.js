@@ -6,6 +6,8 @@ const loadMore = document.querySelector('#loadMore')
 const inputTerm = document.querySelector('#input-term')
 const inputLocation = document.querySelector('#input-location')
 const btnSearch = document.querySelector('#btn-search')
+const messageBox = document.querySelector('#messageBox')
+
 const queryLimit = 10
 let searchStats = initStats()
 let loginUser = null
@@ -243,7 +245,8 @@ function addLoadMoreButton () {
   if (searchStats.page < searchStats.totalPages) {
     if (!loadMore.hasChildNodes()) {
       const btnLoadMore = document.createElement('button')
-      btnLoadMore.innerHTML = '<span><i class="fas fa-question"></i> Still Hungry <i class="fas fa-question"></i></span>'
+      btnLoadMore.innerHTML =
+        '<span><i class="fas fa-question"></i> Still Hungry <i class="fas fa-question"></i></span>'
       btnLoadMore.classList.add('btn', 'btn-default')
       btnLoadMore.style.color = '#92AC86'
       btnLoadMore.style.backgroundColor = 'rgba(29, 45, 68, 1)'
@@ -301,6 +304,12 @@ function checkResponseAndReturnJson (res) {
 }
 
 function handleAPIReponse (json) {
+  if (json.total === 0) {
+    messageBox.style.display = 'block'
+    throw new Error('0 Hit!')
+  } else {
+    messageBox.style.display = 'none'
+  }
   searchStats.page = searchStats.page === null ? 1 : searchStats.page + 1
   searchStats.total = json.total
   searchStats.totalPages = Math.floor(json.total / queryLimit)
@@ -338,9 +347,7 @@ function handleAPIReponse (json) {
 // }
 
 function getPositionFromIPData () {
-  return window.fetch(
-    'https://api.ipdata.co?api-key=' + apiKeys.ip_data
-  )
+  return window.fetch('https://api.ipdata.co?api-key=' + apiKeys.ip_data)
 }
 
 function generateUrlWithParams (baseUrl, params) {

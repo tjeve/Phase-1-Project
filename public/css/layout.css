@@ -151,4 +151,9 @@ body {
     color: #666;
     padding: 40px 0;
   }
+
+#messageBox{
+  margin: 20px 0;
+  display: none;
+}
   
