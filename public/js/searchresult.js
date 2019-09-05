@@ -243,7 +243,7 @@ function addLoadMoreButton () {
   if (searchStats.page < searchStats.totalPages) {
     if (!loadMore.hasChildNodes()) {
       const btnLoadMore = document.createElement('button')
-      btnLoadMore.innerText = 'Still Hungry???'
+      btnLoadMore.innerHTML = '<span><i class="fas fa-question"></i> Still Hungry <i class="fas fa-question"></i></span>'
       btnLoadMore.classList.add('btn', 'btn-default')
       btnLoadMore.style.color = '#92AC86'
       btnLoadMore.style.backgroundColor = 'rgba(29, 45, 68, 1)'
