@@ -19,7 +19,9 @@
   },
   "author": "",
   "standard": {
-    "globals": ["$"]
+    "globals": [
+      "$"
+    ]
   },
   "license": "ISC",
   "bugs": {
