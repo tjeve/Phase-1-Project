@@ -23,7 +23,7 @@ Our team used [Trello](www.trello.com) to manage our workflow and track project 
   * [Bootstrap](https://getbootstrap.com/)
   * [Masonry](https://masonry.desandro.com/)
   * [Yelp API](https://www.yelp.com/developers)
-  * [geolocation API](https://ipdata.co/) 
+  * [IPData](https://ipdata.co/) 
   * [Firebase](https://firebase.google.com/)
   [Google Maps](https://developers.google.com/maps/documentation/)
 
