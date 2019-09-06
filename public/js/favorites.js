@@ -123,7 +123,14 @@ function handleClickFavorite (e) {
       const deleteKey = favoriteBusinessIds[restaurantId]
       ref.child(deleteKey).remove()
       baseElement.remove()
-      // console.log(deleteKey)
+      const masonry = new window.Masonry(listOfFavorites, {
+        // options
+        itemSelector: '.grid-item',
+        columnWidth: 350,
+        fitWidth: true,
+        isInitLayout: false
+      })
+      masonry.layout()
     }
   })
 }

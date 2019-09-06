@@ -36,13 +36,17 @@ function renderRestaurantInfo (restinfo) {
 }
 
 function init () {
-  // Request for Yelp information
-  const YELP_API_KEY = 'C-sgeaqD6bJ8p85VOY5iFKlakVsPJEtPg-BsWiFQA_v1sejEWgzEoFO3wE5RZq4bghLIMFbkCtQ8AA2ChnXzD6ZXW2NRrs8YCbQhQnngkR4sE46mBuhoYUVMNmRhXXYx'
+  const db = window.firebase.database()
+  const firebasePath = '/apikey'
+  const apikeys = db.ref(firebasePath)
+  apikeys.once('value', function (data) {
+    const apiKeys = data.val()
+     // Request for Yelp information
   const restaurantID = window.location.search
   $.ajax({
     url: `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/${restaurantID.slice(4)}`, // swap out restaurant id for variable from Kazue
     headers: {
-      Authorization: `Bearer ${YELP_API_KEY}`
+      Authorization: `Bearer ${apiKeys.yelp_api_key}`
     },
     method: 'GET',
     dataType: 'json',
@@ -53,6 +57,8 @@ function init () {
     }
 
   
+  })
+
   })
 
   //   function mapAPI() { // if initMap doesn't work, try this method and see if it does.
