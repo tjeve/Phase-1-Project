@@ -1,5 +1,6 @@
+/* global google, marker,   */
+
 $(document).ready(init)
-let yelpPromise = null
 
 // Google Map
 function initMap (coordinates) {
@@ -52,10 +53,10 @@ function init () {
     success: function (restInfo) {
       const restInfoContainer = document.getElementById('rest-info-container')
       restInfoContainer.innerHTML = renderRestaurantInfo(restInfo)
-      // let yelpPromise = restInfo
       initMap(restInfo.coordinates)
     }
 
+  
   })
 
   })
