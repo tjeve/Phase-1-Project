@@ -30,9 +30,7 @@ Our team used [Trello](www.trello.com) to manage our workflow and track project 
 
 ### Testing
   * [Standard JS](https://standardjs.com/)
-  * [Travis CI](https://travis-ci.com/)
-   
-[![Build Status](https://travis-ci.com/tjeve/Phase-1-Project.svg?token=dsz12ZBZHtquGbpEUUm6&branch=master)](https://travis-ci.com/tjeve/Phase-1-Project)
+  * [Travis CI](https://travis-ci.com/)[![Build Status](https://travis-ci.com/tjeve/Phase-1-Project.svg?token=dsz12ZBZHtquGbpEUUm6&branch=master)](https://travis-ci.com/tjeve/Phase-1-Project)
 
 ### API Key security
    * API Keys for Yelp and IP Data are saved in Firebase database. It's not visible in Javascript file. 
