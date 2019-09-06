@@ -28,7 +28,6 @@ body {
     background-position: center;
     position: relative;
   }
-  
   .overlay {
     position: absolute;
     min-height: 100%;
@@ -37,68 +36,54 @@ body {
     top: 0;
     background: rgba(0, 0, 0, 0.6);
   }
-  .about {
+  .description {
+    left: 50%;
+    position: absolute;
+    top: 20%;
+    transform: translate(-50%, -55%);
+    text-align: center;
+  }
+  .description h1 {
+    color: #92AC86;
+    font-family: 'Livvic', sans-serif
+  }
+  .description p {
+    color: #fff;
+    font-size: 1.3rem;
+    line-height: 1.5;
+  }
+  
+  .card-deck{
     left: 50%;
     position: absolute;
     top: 45%;
     transform: translate(-50%, -55%);
     text-align: center;
     border-radius: 100px;
-    padding: 60px;
-    background-color: ; 
+    padding: 10px; 
   }
-  .about h1 {
-    color: #92AC86;
-    font-family: 'Livvic', sans-serif
+  .card {
+    border: solid 1px rgba(29, 45, 68, 1);
   }
-  .about p {
-    color: #fff;
-    font-size: 1.3rem;
-    line-height: 1.5;
+  .card-body{
+    background-color: #f2f6e9;
   }
- 
-  .features {
-    margin: 4em auto;
-    padding: 1em;
-    position: relative;
+  .card-title{
+    color: rgba(29, 45, 68, 1) 
   }
-  .feature-title {
-    color: #333;
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-  }
-  .features img {
-    -webkit-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-    -moz-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-    margin-bottom: 16px;
-  }
-  .features .form-control,
-.features input {
-    border-radius: 0;
-}
-.features .btn {
-  background-color: rgba(29, 45, 68, 1);
-  border: 1px solid rgba(29, 45, 68, 1);
-  color: #fff;
-  margin-top: 20px;
-}
-.features .btn:hover {
-  background-color: #92AC86;
-  border: 1px solid #92AC86;
-}
-.page-footer {
-    background-color: rgba(29, 45, 68, 1);
-    color: #ccc;
-    padding: 60px 0 30px;
-    display: flex;
-    align-items: flex-end;
-    
-  }
-  .footer-copyright {
+  .card-text {
     color: #666;
-    padding: 40px 0;
   }
+  .submit {
+    left: 49%;
+    position: relative;
+    top: 80%;
+    transform: translate(-50%, -55%);
+    text-align: center;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-content: space-between;
+  }
+  
   
