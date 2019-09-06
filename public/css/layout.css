@@ -58,9 +58,9 @@ body {
   .form-control,
   .search-bar {
     border:1px solid rgba(29, 45, 68, 1);
-    background: ;
+    /* background: ; */
     border-radius: 25px;
-    color: #fff; 
+    /* color: #fff;  */
     font-family: 'Livvic', sans-serif;
   }
   .btn-primary,
