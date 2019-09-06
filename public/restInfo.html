@@ -10,39 +10,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!--favicon-->
     <title>Restaurant Results</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-md">
-        <a class="navbar-brand" href="#">Hungry Eyes</a>
-        <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      <div class="collapse navbar-collapse" id="main-navigation">
-        <ul class="navbar-nav">
+  <nav class="navbar navbar-expand-md">
+    <a class="navbar-brand" href="#">Hungry Eyes</a>
+    <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  <div class="collapse navbar-collapse" id="main-navigation">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="../index.html">Home</a>
+      </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../html/about.html">About</a>
+        </li>
           <li class="nav-item">
-            <a class="nav-link" href="index.html">Home</a>
+            <a class="nav-link" href="../html/contact.html">Contact</a>
           </li>
-            <li class="nav-item">
-              <a class="nav-link" href="html/about.html">About</a>
-            </li>
-              <li class="nav-item">
-                <a class="nav-link" href="html/contact.html">Contact</a>
-              </li>
-        </ul>
-       </div>
-    </nav>
+          <li class="nav-item">
+            <a class="nav-link" href="../html/favorites.html">Favorites</a>
+          </li>
+          <li class="nav-item" id="li-login">
+            <a class="nav-link" href="../html/login.html">Log In</a>
+          </li>
+    </ul>
+   </div>
+</nav>
     <main>
         <div id="restaurant-information">
             <div class="rest-info" id="rest-info-container">
-                <div class="rest-name">Restaurant Name Goes Here</div>
-                <div class="rest-number">Restaurant Phone number goes here</div>
-                <div class="rest-website">Restaurant Website goes here</div>
-                <div class="rest-address">Restaurant address goes here</div>
-                <div class="rest-distance-from-user">Restaurant distance from user goes here</div>
             </div>
             <div class="rest-map-container">
-                <div id="map">Google Map goes here</div>
+                <div id="map"></div>
                 <!-- <div>Get directions goes here</div> -->
             </div>
         </div>
@@ -56,10 +58,11 @@
         </div>
         <div class="col-lg-4 col-md-4 col-sm-12">
           <h6 class="text-uppercase font-weight-bold">Contact</h6>
-          <p>Address: 1334 Brittmoore Rd, Houston, TX 77043</p>
+          <p>1334 Brittmoore Rd, Houston, TX 77043</p>
+          <p>hungryeyes@gmail.com</p>
         </div>
       </div>
-      <div class="footer-copyright text-center">© 2019 Copyright: MyWebsite.com</div>
+      <div class="footer-copyright text-center"></div>
     </footer>
     <!-- scripts -->
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
@@ -69,7 +72,10 @@
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-database.js"></script>
     <script src="js/firebase.js"></script>
+    <script src="js/layout.js"></script>
     <script src="js/restinfo.js"></script>
+    <script src="js/favorites.js"></script>
+    <script src="js/login.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKpVPcTeEAp1nDw7UigighCQJvjO62mq8"></script>
 </body>
 </html>

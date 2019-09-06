@@ -13,20 +13,18 @@
     color: black;
 }
 .rest-info {
-    border: solid navy;
     flex: 1;
     background-color: white;
     color: grey;
     background: rgba(0, 0, 0, 0.6);
     margin: 20px;
     text-align: center;
+    align-items: center;
 }
 .rest-map-container {
+    display: flex;
     justify-content: center;
     align-items: center;
-    border: solid navy;
     flex: 2;
     margin: 20px;
-    /* width: 80% */
-    
 }

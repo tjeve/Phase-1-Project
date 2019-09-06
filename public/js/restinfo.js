@@ -1,11 +1,11 @@
-/* global google, marker,   */
+/* global google, marker */
 
 $(document).ready(init)
 
 // Google Map
 function initMap (coordinates) {
   // console.log(coordinates)
-  let mapContainer = document.getElementById('map')
+  const mapContainer = document.getElementById('map')
   // console.log(mapContainer)
   // The map, centered at Restaurant
   const restaurantLocation = { lat: coordinates.latitude, lng: coordinates.longitude }
@@ -14,16 +14,8 @@ function initMap (coordinates) {
       zoom: 15,
       center: { lat: coordinates.latitude, lng: coordinates.longitude }
     })
-  // The marker, positioned at Uluru
+  // The marker, positioned at the Restaurant
   var marker = new google.maps.Marker({ position: restaurantLocation, map: map })
-
-  // The location of Uluru
-  //   var uluru = { lat: -25.344, lng: 131.036 }
-  //   // The map, centered at Uluru
-  //   var map = new google.maps.Map(
-  //     document.getElementById('map'), { zoom: 4, center: uluru })
-  //   // The marker, positioned at Uluru
-  //   var marker = new google.maps.Marker({ position: uluru, map: map })
 }
 
 function renderRestaurantInfo (restinfo) {
@@ -52,12 +44,12 @@ function init () {
     dataType: 'json',
     success: function (restInfo) {
       const restInfoContainer = document.getElementById('rest-info-container')
-      restInfoContainer.innerHTML = renderRestaurantInfo(restInfo)
-      initMap(restInfo.coordinates)
-    }
+        restInfoContainer.innerHTML = renderRestaurantInfo(restInfo)
+        initMap(restInfo.coordinates)
+        }
 
-  
-  })
+      
+      })
 
   })
 
