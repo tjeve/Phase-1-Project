@@ -11,7 +11,7 @@ body {
   .navbar-brand {
     color: #92AC86;
     cursor: pointer;
-    font-family: 'Livvic', sans-serif;
+    font-family: 'Roboto Slab', serif;
   }
   .nav-link {
     margin-right: 1em !important;
@@ -46,42 +46,23 @@ body {
   }
   .description h1 {
     color: #92AC86;
-    font-family: 'Livvic', sans-serif
+    font-family: 'Livvic', sans-serif;
+    font-size: 3.5rem;
   }
   .description p {
     color: #fff;
     font-size: 1.3rem;
     line-height: 1.5;
-  }
-  
-  .about {
-    left: 50%;
-    position: absolute;
-    top: 45%;
-    transform: translate(-50%, -55%);
-    text-align: center;
-    border-radius: 100px;
-    padding: 60px;
-    background-color: ; 
-  }
-  .about h1 {
-    color: #92AC86;
-    font-family: 'Livvic', sans-serif
-  }
-  .about p {
-    color: #fff;
-    font-size: 1.3rem;
-    line-height: 1.5;
+    font-family: 'Roboto Slab', serif;
   }
   .form-control,
   .search-bar {
     border:1px solid rgba(29, 45, 68, 1);
-    background: ;
+    /* background: ; */
     border-radius: 25px;
-    color: #fff;
-    
+    /* color: #fff;  */
+    font-family: 'Livvic', sans-serif;
   }
-  
   .btn-primary,
   .input-group-btn {
     color: #92AC86;
@@ -90,6 +71,7 @@ body {
     display: flex;
     border-radius: 25px;
     justify-content: space-between;
+    font-family: 'Livvic', sans-serif;
   }
   .description button:hover {
     border:1px solid rgba(29, 45, 68, 1);
@@ -99,7 +81,7 @@ body {
   .grid {
     background-size: cover;
     background-position: center;
-    position: relative;
+    position: absolute;
   }
   .row {
     display: flex;

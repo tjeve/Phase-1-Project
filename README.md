@@ -24,7 +24,14 @@ Our team used [Trello](www.trello.com) to manage our workflow and track project 
   * [Masonry](https://masonry.desandro.com/)
   * [Yelp API](https://www.yelp.com/developers)
   * [IPData](https://ipdata.co/) 
-  * [Firebase](https://firebase.google.com/)
+  * [Firebase](https://firebase.google.com/) - Hosting, Authentication and Realtime Database
   * [Google Maps](https://developers.google.com/maps/documentation/)
 
-[![Build Status](https://travis-ci.com/tjeve/Phase-1-Project.svg?token=dsz12ZBZHtquGbpEUUm6&branch=master)](https://travis-ci.com/tjeve/Phase-1-Project)
+
+### Testing
+  * [Standard JS](https://standardjs.com/)
+  * [Travis CI](https://travis-ci.com/)[![Build Status](https://travis-ci.com/tjeve/Phase-1-Project.svg?token=dsz12ZBZHtquGbpEUUm6&branch=master)](https://travis-ci.com/tjeve/Phase-1-Project)
+
+### API Key security
+   * API Keys for Yelp and IP Data are saved in Firebase database. It's not visible in Javascript file. 
+   * API Keys for Google services such as Firebase and Map are working under limited host only. [Google API key best practice](https://developers.google.com/maps/api-key-best-practices) 
