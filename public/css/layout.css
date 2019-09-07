@@ -40,7 +40,7 @@ body {
   .description {
     left: 50%;
     position: absolute;
-    top: 45%;
+    top: 55%;
     transform: translate(-50%, -55%);
     text-align: center;
   }
@@ -139,5 +139,11 @@ body {
 #messageBox{
   margin: 20px 0;
   display: none;
+}
+
+@media screen and (max-width: 400px) {
+  .description p{
+    display: none;
+  }
 }
   
