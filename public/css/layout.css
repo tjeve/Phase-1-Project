@@ -11,7 +11,7 @@ body {
   .navbar-brand {
     color: #92AC86;
     cursor: pointer;
-    font-family: 'Roboto Slab', serif;
+    font-family: 'Livvic', sans-serif;
   }
   .nav-link {
     margin-right: 1em !important;
@@ -35,7 +35,7 @@ body {
     min-width: 100%;
     left: 0;
     top: 0;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.5);
   }
   .description {
     left: 50%;
@@ -48,12 +48,14 @@ body {
     color: #92AC86;
     font-family: 'Livvic', sans-serif;
     font-size: 3.5rem;
+    padding: 3%;
   }
   .description p {
     color: #fff;
     font-size: 1.3rem;
     line-height: 1.5;
     font-family: 'Roboto Slab', serif;
+    padding: 2%;
   }
   .form-control,
   .search-bar {
@@ -130,7 +132,7 @@ body {
     
   }
   .footer-copyright {
-    color: #666;
+    color: #92AC86;
     padding: 40px 0;
   }
 
