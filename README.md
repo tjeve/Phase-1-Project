@@ -4,6 +4,7 @@ The purpose of this [project](https://github.com/oakmac/phase1-final-project-req
 
 ### Original Link to the Project
 > https://digitalcrafts-ph-1566664527167.firebaseapp.com/
+> www.bit.ly/hungry-eyes
 
 ### What Hungry Eyes Does and How It Works
 * Hungry eyes takes food and location input from the user, gives that data to the [Yelp API](https://www.yelp.com/developers) and returns images of the requested food type as a collage using the CSS layout [Masonry](https://masonry.desandro.com/). If the location is not specified, a [geolocation API](https://ipdata.co/) uses the users location.  
