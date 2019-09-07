@@ -20,6 +20,16 @@ window.firebase.auth().onAuthStateChanged(function (user) {
 getAPIKeys()
 
 btnSearch.addEventListener('click', searchBusiness)
+inputTerm.addEventListener('keypress', function (e) {
+  if (e.which === 13) {
+    searchBusiness()
+  }
+})
+inputLocation.addEventListener('keypress', function (e) {
+  if (e.which === 13) {
+    searchBusiness()
+  }
+})
 
 function initStats () {
   return {
