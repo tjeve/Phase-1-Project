@@ -39,7 +39,7 @@ Our team used [Trello](www.trello.com) to manage our workflow and track project 
    * API Keys for Yelp and IP Data are saved in Firebase database. It's not visible in Javascript file. 
    * API Keys for Google services such as Firebase and Map are working under limited host only. [Google API key best practice](https://developers.google.com/maps/api-key-best-practices)
    
- ### Ideas for Future Functionality
+ ### Ideas for Future Updates
    * Adding a button to show more photos from the restaurant of the selected photo on the restaurant info page
    * Adding the distance between the restaurant and the user on the restaurant info page
    
