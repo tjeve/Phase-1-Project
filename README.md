@@ -31,8 +31,13 @@ Our team used [Trello](www.trello.com) to manage our workflow and track project 
 
 ### Testing
   * [Standard JS](https://standardjs.com/)
-  * [Travis CI](https://travis-ci.com/)[![Build Status](https://travis-ci.com/tjeve/Phase-1-Project.svg?token=dsz12ZBZHtquGbpEUUm6&branch=master)](https://travis-ci.com/tjeve/Phase-1-Project)
+  * [Travis CI](https://travis-ci.com/): [![Build Status](https://travis-ci.com/tjeve/Phase-1-Project.svg?token=dsz12ZBZHtquGbpEUUm6&branch=master)](https://travis-ci.com/tjeve/Phase-1-Project)
 
 ### API Key security
    * API Keys for Yelp and IP Data are saved in Firebase database. It's not visible in Javascript file. 
-   * API Keys for Google services such as Firebase and Map are working under limited host only. [Google API key best practice](https://developers.google.com/maps/api-key-best-practices) 
+   * API Keys for Google services such as Firebase and Map are working under limited host only. [Google API key best practice](https://developers.google.com/maps/api-key-best-practices)
+   
+ ### Ideas for Future Functionality
+   * Adding a button to show more photos from the restaurant of the selected photo on the restaurant info page
+   * Adding the distance between the restaurant and the user on the restaurant info page
+   
