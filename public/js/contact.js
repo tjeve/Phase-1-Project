@@ -1,3 +1,4 @@
+
 // var firebaseConfig = {
 //     apiKey: "AIzaSyBbt9u-aIn5UtC0JTcUEAwz9xrxzkzkJOc",
 //     authDomain: "digitalcrafts-ph-1566664527167.firebaseapp.com",
@@ -49,3 +50,4 @@ function saveMessage(name, email, message) {
       message: message  
     });
 }
+       
