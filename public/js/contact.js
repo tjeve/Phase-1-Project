@@ -1,4 +1,3 @@
-
 // var firebaseConfig = {
 //     apiKey: "AIzaSyBbt9u-aIn5UtC0JTcUEAwz9xrxzkzkJOc",
 //     authDomain: "digitalcrafts-ph-1566664527167.firebaseapp.com",
@@ -11,43 +10,37 @@
 //   // Initialize Firebase
 //   firebase.initializeApp(firebaseConfig);
 
-  var messagesRef = firebase.database().ref('messages');
+var messagesRef = window.firebase.database().ref('messages')
 
-document.getElementById('contactForm').addEventListener('submit', 
-submitForm);
+document.getElementById('contactForm').addEventListener('submit', submitForm)
 
-function submitForm(e){
-    e.preventDefault();
+function submitForm (e) {
+  e.preventDefault()
 
+  var name = getInputVal('name')
+  var email = getInputVal('email')
+  var message = getInputVal('message')
 
-    var name = getInputVal('name');
-    var email = getInputVal('email');
-    var message = getInputVal('message');
+  saveMessage(name, email, message)
 
-    
-    saveMessage(name, email, message);
+  document.querySelector('.alert').style.display = 'block'
 
-    document.querySelector('.alert').style.display = 'block';
+  setTimeout(function () {
+    document.querySelector('.alert').style.display = 'none'
+  }, 3000)
 
-    setTimeout(function() {
-        document.querySelector('.alert').style.display = 'none';
-    },3000);
-
-    document.getElementById('contactForm').reset();
+  document.getElementById('contactForm').reset()
 }
 
-function getInputVal(id) {
-    return document.getElementById(id).value;
+function getInputVal (id) {
+  return document.getElementById(id).value
 }
 
-
-
-function saveMessage(name, email, message) {
-    var newMessageRef = messagesRef.push();
-    newMessageRef.set({
-      name: name,
-      email: email,
-      message: message  
-    });
+function saveMessage (name, email, message) {
+  var newMessageRef = messagesRef.push()
+  newMessageRef.set({
+    name: name,
+    email: email,
+    message: message
+  })
 }
-       
