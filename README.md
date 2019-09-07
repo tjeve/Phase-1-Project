@@ -22,6 +22,7 @@ Our team used [Trello](www.trello.com) to manage our workflow and track project 
 ### Technologies Used
   * [Bootstrap](https://getbootstrap.com/)
   * [Masonry](https://masonry.desandro.com/)
+  * [Font Awesome](https://fontawesome.com/)
   * [Yelp API](https://www.yelp.com/developers)
   * [IPData](https://ipdata.co/) 
   * [Firebase](https://firebase.google.com/) - Hosting, Authentication and Realtime Database
