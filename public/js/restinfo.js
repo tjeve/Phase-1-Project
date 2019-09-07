@@ -28,12 +28,13 @@ function fixPhoneNum (phoneNumberString) {
   }
   return null
 }
+const fontAwesomeStar = '<i class="fas fa-star"></i>'
 
 function renderRestaurantInfo (restinfo) {
   console.log()
   return `
-  <div class="rest-name"><h1><a href="${restinfo.url}">${restinfo.name}</a></h1></div>
-  <div class="rest-rating">${'<i class="fas fa-star"></i>'.repeat(restinfo.rating)}</div>
+  <div class="rest-name"><h1><a class='rest-name' href="${restinfo.url}">${restinfo.name}</a></h1></div>
+  <div class="rest-rating">${fontAwesomeStar.repeat(restinfo.rating)}</div>
   <div class="rest-phone"><a class='link-color' href="tel:${restinfo.phone}">${fixPhoneNum(restinfo.phone)}</a></div>
   <div class="rest-address"><a class='link-color' href=https://www.google.com/maps/@${restinfo.coordinates.latitude},${restinfo.coordinates.longitude}>${restinfo.location.display_address.join(', ')}</a></div>
 `

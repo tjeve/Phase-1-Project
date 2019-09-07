@@ -48,3 +48,10 @@
 .link-color {
     color: white;
 }
+.page-footer {
+    display: flex;
+    /* flex-direction: column; */
+}
+.rest-name {
+    color: #92AC86;
+}
