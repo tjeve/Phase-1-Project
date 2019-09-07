@@ -19,18 +19,25 @@ function initMap (coordinates) {
   // The marker, positioned at the Restaurant
   return new google.maps.Marker({ position: restaurantLocation, map: map })
 }
-
-function renderRestaurantInfo (restinfo) {
-  return `
-  <div class="rest-name"><h3><a href="${restinfo.url}">${
-  restinfo.name
-}</a></h3></div>
-  <div class="rest-rating">${restinfo.rating} / 5</div>
-  <div class="rest-number">${restinfo.phone}</div>
-  <div class="rest-address">${restinfo.location.display_address.join(' ')}</div>
-`
+function fixPhoneNum (phoneNumberString) {
+  var cleaned = ('' + phoneNumberString).replace(/\D/g, '')
+  var match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/)
+  if (match) {
+    var intlCode = (match[1] ? '+1 ' : '')
+    return [intlCode, '(', match[2], ') ', match[3], '-', match[4]].join('')
+  }
+  return null
 }
 
+function renderRestaurantInfo (restinfo) {
+  console.log()
+  return `
+  <div class="rest-name"><h1><a href="${restinfo.url}">${restinfo.name}</a></h1></div>
+  <div class="rest-rating">${'<i class="fas fa-star"></i>'.repeat(restinfo.rating)}</div>
+  <div class="rest-phone"><a class='link-color' href="tel:${restinfo.phone}">${fixPhoneNum(restinfo.phone)}</a></div>
+  <div class="rest-address"><a class='link-color' href=https://www.google.com/maps/@${restinfo.coordinates.latitude},${restinfo.coordinates.longitude}>${restinfo.location.display_address.join(', ')}</a></div>
+`
+}
 function init () {
   const db = window.firebase.database()
   const firebasePath = '/apikey'

@@ -1,6 +1,9 @@
 #map {
     height: 400px;  /* The height is 400 pixels */
     width: 100%;  /* The width is the width of the web page */
+    width: 80vw;
+    margin: auto;
+    padding-top: 40px;
 }
 #restaurant-information {
     display: flex;
@@ -17,14 +20,31 @@
     background-color: white;
     color: grey;
     background: rgba(0, 0, 0, 0.6);
-    margin: 20px;
+    margin: auto;
+    margin-top: 30px;
+    width: 80vw;
     text-align: center;
-    align-items: center;
 }
 .rest-map-container {
     display: flex;
     justify-content: center;
     align-items: center;
     flex: 2;
-    margin: 20px;
+    margin: auto;
+    padding: 20px;
+}
+.rest-address {
+    color: yellow;
+}
+.rest-phone {
+    color: white;
+}
+.rest-rating {
+    color: white;
+}
+.fa-star {
+    color: yellow;
+}
+.link-color {
+    color: white;
 }
