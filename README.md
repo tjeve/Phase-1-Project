@@ -2,8 +2,9 @@
 
 The purpose of this [project](https://github.com/oakmac/phase1-final-project-requirements) is to create a website that allows the user to search for a restaurant and its location based on images of food taken at that restaurant.  It utilizes the CSS framework Bootstrap, the CSS layout Masonry, and several API's including [Yelp](https://www.yelp.com/developers), [Firebase](https://firebase.google.com/) and [Google Maps](https://developers.google.com/maps/documentation/). It is our second group project with Digital Crafts.
 
-### Original Link to the Project
+### Original Links to the Project
 > https://digitalcrafts-ph-1566664527167.firebaseapp.com/
+
 > www.bit.ly/hungry-eyes
 
 ### What Hungry Eyes Does and How It Works
